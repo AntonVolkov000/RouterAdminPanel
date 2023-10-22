@@ -19,11 +19,13 @@
                         <input type="text" th:field="*{login}" id="login" placeholder="Login">
                         <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" ></span>
                     </div>
+
                     <div >
                         <label for="password" class="col-form-label">Password</label>
                         <input type="text" th:field="*{password}"  id="password" placeholder="Password">
                         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></span>
                     </div>
+
                 </div>
                 <div class="row">
                     <div >
