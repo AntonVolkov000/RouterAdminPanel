@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface AdminAccountRepository extends JpaRepository<AdminAccount, Long>{
-    List<AdminAccount> findByLogin(String login);
+    AdminAccount findByLogin(String login);
 }

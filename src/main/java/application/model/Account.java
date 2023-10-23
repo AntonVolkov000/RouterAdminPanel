@@ -49,24 +49,4 @@ public class Account {
     }
 
     public Account() {}
-
-    public static String generateAccountNumber() {
-        long start = 999_999_999L; // 10 цифр
-        long end = 10_000_000_000L;
-        return String.valueOf(ThreadLocalRandom.current().nextLong(start, end));
-    }
-
-    public static double generateSum() {
-        double start = 0.0;
-        double end = 1_000_000.0;
-        Random generator =  new Random();
-        double randomDouble = generator.nextDouble() * (end - start);
-        BigDecimal bd = new BigDecimal(
-                randomDouble)
-                .setScale(2, RoundingMode.HALF_DOWN);// Режим округления для округления в сторону
-                                                             // "ближайшего соседа", если только оба соседа
-                                                             // не находятся на равном расстоянии,
-                                                             // и в этом случае округление в меньшую сторону.
-        return bd.doubleValue();
-    }
 }

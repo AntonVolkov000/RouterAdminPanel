@@ -26,6 +26,14 @@ public class AdminAccount {
     @Column(name = "password")
     private String password;
 
+    @Column(name="active")
+    private boolean active;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))    @Enumerated(EnumType.STRING)
+    private Set<Role> roles = new HashSet<>();
+
+
     // Отношение таблицы "AdminAccount" к таблице "Account" один к одному.
     // Администратор может иметь только один лицевой счет
     @OneToOne(cascade = CascadeType.ALL,
@@ -49,19 +57,23 @@ public class AdminAccount {
         this.login = newLogin;
     }
 
-    public void setPassword (String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        // Исключено хранение пароля в базе данных в открытом виде, используется хеширование.
-        String algorithm = "PBKDF2WithHmacSHA1";
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-        int iterationCount = 65536;
-        int keyLength = 128;
+//    public void setPassword (String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+//        // Исключено хранение пароля в базе данных в открытом виде, используется хеширование.
+//        String algorithm = "PBKDF2WithHmacSHA1";
+//        SecureRandom random = new SecureRandom();
+//        byte[] salt = new byte[16];
+//        random.nextBytes(salt);
+//        int iterationCount = 65536;
+//        int keyLength = 128;
+//
+//        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterationCount, keyLength);
+//        SecretKeyFactory factory = SecretKeyFactory.getInstance(algorithm);
+//        byte[] passwordHash = factory.generateSecret(spec).getEncoded();
+//        this.password = new String(passwordHash, StandardCharsets.UTF_8);
+//    }
 
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterationCount, keyLength);
-        SecretKeyFactory factory = SecretKeyFactory.getInstance(algorithm);
-        byte[] passwordHash = factory.generateSecret(spec).getEncoded();
-        this.password = new String(passwordHash, StandardCharsets.UTF_8);
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setId(long id) {
@@ -90,6 +102,22 @@ public class AdminAccount {
         this.account = account;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public AdminAccount()
     {
 
@@ -97,7 +125,8 @@ public class AdminAccount {
 
     public AdminAccount (String login, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
         this.login = login;
-        this.setPassword(password);
+        this.password = password;
+//        this.setPassword(password);
     }
 
     public static String generatePassword (int passwordLen)

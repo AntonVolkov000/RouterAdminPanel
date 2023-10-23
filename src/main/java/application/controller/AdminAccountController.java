@@ -42,7 +42,7 @@ public class AdminAccountController {
             if (login == null)
                 adminAccounts.addAll(adminAccountRepository.findAll());
             else
-                adminAccounts.addAll(adminAccountRepository.findByLogin(login));
+                adminAccounts.add(adminAccountRepository.findByLogin(login));
 
             System.out.println(adminAccounts.size());
             if (adminAccounts.isEmpty()) {
@@ -84,12 +84,13 @@ public class AdminAccountController {
         if (result.hasErrors()) {
             return "add-adminAccount";
         }
-        Account newAccount = new Account(Account.generateAccountNumber(), Account.generateSum());
-        accountRepository.save(newAccount);
-
-        adminAccount.setAccount(newAccount);
-        adminAccountRepository.save(adminAccount);
-        model.addAttribute("adminAccounts", adminAccountRepository.findAll());
+        System.out.println("use admin account controller");
+//        Account newAccount = new Account(Account.generateAccountNumber(), Account.generateSum());
+//        accountRepository.save(newAccount);
+//
+//        adminAccount.setAccount(newAccount);
+//        adminAccountRepository.save(adminAccount);
+//        model.addAttribute("adminAccounts", adminAccountRepository.findAll());
         return "index";
     }
     @PostMapping("/update/{id}")

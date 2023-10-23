@@ -30,12 +30,12 @@ public class RouterAdminPanelApplication {
         };
     }
 
-    @Bean
-    public CommandLineRunner accountDataLoader (AccountRepository repo) {
-
-        return args -> {
-            repo.save(new Account(Account.generateAccountNumber(), Account.generateSum()));
-            repo.save(new Account(Account.generateAccountNumber(), Account.generateSum()));
-        };
-    }
+//    @Bean
+//    public CommandLineRunner accountDataLoader (AccountRepository repo) {
+//
+//        return args -> {
+//            repo.save(new Account(Account.generateAccountNumber(), Account.generateSum()));
+//            repo.save(new Account(Account.generateAccountNumber(), Account.generateSum()));
+//        };
+//    }
 }
