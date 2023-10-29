@@ -10,8 +10,8 @@ public class Device {
     @Column(name = "device_id")
     private Long deviceId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "device_name")
+    private String deviceName;
 
     @Column(name = "ip_address")
     private String ipAddress;
@@ -27,12 +27,12 @@ public class Device {
         return deviceId;
     }
 
-    public String getName() {
-        return name;
+    public String getDeviceName() {
+        return deviceName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
     }
 
     public String getIpAddress() {

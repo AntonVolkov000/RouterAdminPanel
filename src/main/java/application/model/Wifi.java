@@ -18,7 +18,7 @@ public class Wifi {
 
     @ManyToOne
     @JoinColumn(name = "mode_id")
-    private Mode mode;
+    private WifiMode wifiMode;
 
     public Long getWifiId() {
         return wifiId;
@@ -40,11 +40,11 @@ public class Wifi {
         this.password = password;
     }
 
-    public Mode getMode() {
-        return mode;
+    public WifiMode getMode() {
+        return wifiMode;
     }
 
-    public void setMode(Mode mode) {
-        this.mode = mode;
+    public void setWifiMode(WifiMode wifiMode) {
+        this.wifiMode = wifiMode;
     }
 }
