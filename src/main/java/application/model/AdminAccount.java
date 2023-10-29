@@ -1,5 +1,6 @@
 package application.model;
 
+import application.configuration.SecurityConfig;
 import jakarta.persistence.*;
 
 import java.nio.charset.StandardCharsets;
@@ -73,7 +74,9 @@ public class AdminAccount {
 //    }
 
     public void setPassword(String password) {
-        this.password = password;
+//        this.password = password;
+        String encodedPassword = new SecurityConfig().encodePassword(password);
+        this.password = encodedPassword;
     }
 
     public void setId(long id) {
