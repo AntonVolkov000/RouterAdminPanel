@@ -12,7 +12,7 @@
     <h2>Update AdminAccount</h2>
     <div class="row">
         <div>
-            <form action="#" th:action="@{/update/{id}(id=${adminAccount.id})}" th:object="${adminAccount}" method="post">
+            <form action="#" th:action="@{/adminAccount/update/{id}(id=${adminAccount.id})}" th:object="${adminAccount}" method="post">
                 <div class="row">
                     <div>
                         <label for="login" >Login</label>
@@ -20,14 +20,12 @@
                         <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" ></span>
                     </div>
                     <div>
-                        <label for="password" >Password</label>
-                        <input type="text" th:field="*{password}"  id="password" placeholder="Password">
-                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></span>
+                       <label> Password: <input type="password" name="password"/> </label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mt-5">
-                        <input type="submit" class="btn btn-primary" value="Update AdminAccount">
+                        <input type="submit" class="btn btn-primary" value="Обновить аккаунт">
                     </div>
                 </div>
             </form>

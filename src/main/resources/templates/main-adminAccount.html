@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>AdminAccount</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<form action="#" th:action="@{/adminAccount}" th:object="${adminAccount}">
+    <h2 class="my-1">Ваш аккаунт администратора</h2>
+    <div class="row">
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Login</th>
+                <th>AccountNumber</th>
+                <th>AccountSum</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td th:text="${adminAccount.id}"></td>
+                <td th:text="${adminAccount.login}"></td>
+                <td th:text="${adminAccount.account.accountNumber}"></td>
+                <td th:text="${adminAccount.account.sum}"></td>
+
+                <td><a th:href="@{edit/{id}(id=${adminAccount.id})}">Редактировать аккаунт</a></td>
+                <td><a th:href="@{delete/{id}(id=${adminAccount.id})}">Удалить аккаунт</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</form>
+
+</body>
+</html>
+

@@ -2,53 +2,46 @@ package application.controller;
 
 import application.model.Account;
 import application.model.AdminAccount;
-import application.repository.AccountRepository;
+import application.services.AccountService;
+import application.services.AdminAccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import application.repository.AdminAccountRepository;
-
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Objects.isNull;
-
 @Controller
+@RequestMapping("/adminAccount")
 public class AdminAccountController {
-    private final AdminAccountRepository adminAccountRepository;
-    private final AccountRepository accountRepository;
+    private final AdminAccountService adminAccountService;
+    private final AccountService accountService;
     @Autowired
-    public AdminAccountController(AdminAccountRepository adminAccountRepository, AccountRepository accountRepository) {
-        this.adminAccountRepository = adminAccountRepository;
-        this.accountRepository = accountRepository;
+    public AdminAccountController(AdminAccountService adminAccountService, AccountService accountService) {
+        this.adminAccountService = adminAccountService;
+        this.accountService = accountService;
     }
 
     @GetMapping("/admins")
     public ResponseEntity<List<AdminAccount>> getAllAdminAccounts(@RequestParam(required = false) String login)
     {
-        System.out.println("in admins");
         try{
             List<AdminAccount> adminAccounts = new ArrayList<>();
-            if (login == null)
-                adminAccounts.addAll(adminAccountRepository.findAll());
-            else
-                adminAccounts.addAll(adminAccountRepository.findByLogin(login));
+            if (login == null) {
+                adminAccounts.addAll(adminAccountService.getAllAdminAccounts());
+            }
+            else {
+                AdminAccount adminAccount = adminAccountService.getAdminAccountByLogin(login);
+                adminAccounts.add(adminAccount);
+            }
 
-            System.out.println(adminAccounts.size());
             if (adminAccounts.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            System.out.println("ok");
             return new ResponseEntity<>(adminAccounts, HttpStatus.OK);
 
         } catch (Exception e)
@@ -56,58 +49,38 @@ public class AdminAccountController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/new")
-    public String showSignUpForm(AdminAccount adminAccount) {
-        return "add-adminAccount";
-    }
+
     @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        AdminAccount adminAccount = adminAccountRepository
-                .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid admin_account Id:" + id));
+    public String editAdminAccount(@PathVariable("id") long id, Model model) {
+        AdminAccount adminAccount = adminAccountService.editAdminAccount(id);
         model.addAttribute("adminAccount", adminAccount);
         return "update-adminAccount";
     }
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") long id, Model model) {
-        AdminAccount adminAccount = adminAccountRepository
-                .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
-        adminAccountRepository.delete(adminAccount);
-        model.addAttribute("adminAccounts", adminAccountRepository.findAll());
-        System.out.println("in delete");
-        System.out.println(adminAccountRepository.findAll().size());
-        return "index";
+    public String deleteAdminAccount(@PathVariable("id") long id, Model model) {
+        adminAccountService.deleteAdminAccount(id);
+        return "registration";
     }
-    @PostMapping("/addAdminAccount")
-    public String addUser(@Valid AdminAccount adminAccount, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "add-adminAccount";
-        }
-        Account newAccount = new Account(Account.generateAccountNumber(), Account.generateSum());
-        accountRepository.save(newAccount);
 
-        adminAccount.setAccount(newAccount);
-        adminAccountRepository.save(adminAccount);
-        model.addAttribute("adminAccounts", adminAccountRepository.findAll());
-        return "index";
-    }
     @PostMapping("/update/{id}")
-    public String updateUser(
-            @PathVariable("id") long id, @Valid AdminAccount adminAccount, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            adminAccount.setId(id);
-            return "update-adminAccount";
-        }
-        Account account = accountRepository
-                .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid account mapped with adminAccount, id:" + id));
-        if (isNull(adminAccount.getAccount()))
-        {
-            adminAccount.setAccount(account);
-        }
-        adminAccountRepository.save(adminAccount);
-        model.addAttribute("adminAccounts", adminAccountRepository.findAll());
-        return "index";
+    public String updateAdminAccount(@PathVariable("id") long id, @Valid AdminAccount adminAccount,
+                                     Model model) {
+        Account account = accountService.getAccountById(id);
+        adminAccountService.updateAdminAccount(adminAccount, account);
+        model.addAttribute("adminAccount", adminAccount);
+        return "redirect:/login";
+    }
+
+    @GetMapping("/")
+    public String adminAccount(AdminAccount adminAccount, Model model) {
+        model.addAttribute("adminAccount", adminAccount);
+        return "main-adminAccount";
+    }
+
+    @GetMapping("/{id}")
+    public String adminAccountById(@PathVariable("id") long id, Model model) {
+        AdminAccount adminAccount = adminAccountService.getAdminAccountById(id);
+        model.addAttribute("adminAccount", adminAccount);
+        return "main-adminAccount";
     }
 }

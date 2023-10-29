@@ -1,7 +1,7 @@
 package application.controller;
 
 import application.model.TelegramUser;
-import application.repository.TelegramUserRepository;
+import application.services.TelegramUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,26 +10,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/tgUsers")
 public class TelegramUserController {
-    private final TelegramUserRepository telegramUserRepository;
+    private final TelegramUserService telegramUserService;
     @Autowired
-    public TelegramUserController (TelegramUserRepository telegramUserRepository) {
-        this.telegramUserRepository = telegramUserRepository;
+    public TelegramUserController (TelegramUserService telegramUserService) {
+        this.telegramUserService = telegramUserService;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<TelegramUser> getAllTelegramUsers () {
-        return telegramUserRepository.findAll();
-    }
-
-    @PostMapping
-    public TelegramUser createTelegramUser (@RequestBody TelegramUser telegramUser) {
-        return telegramUserRepository.save(telegramUser);
+        return telegramUserService.getAllTelegramUsers();
     }
 
     @GetMapping("/{id}")
     public TelegramUser getUserByTelegramId(@PathVariable("id") Long id) {
-        return telegramUserRepository
-                .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Telegram User Id: " + id));
+        return telegramUserService.getUserByTelegramId(id);
     }
 }
