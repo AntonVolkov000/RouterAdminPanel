@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
+
 @Component
 public class AdminAccountService implements UserDetailsService {
     private final AdminAccountRepository adminAccountRepository;
@@ -27,7 +29,6 @@ public class AdminAccountService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException
     {
-        System.out.println("load by username");
         AdminAccount admin = adminAccountRepository.findByLogin(login);
         return new org.springframework.security.core.userdetails.User(
                 admin.getLogin(),
@@ -41,38 +42,50 @@ public class AdminAccountService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-//    public void addAdminAccount(AdminAccount adminAccount) throws Exception
-//    {
-//
-//        System.out.println("add admin account");
-//        System.out.println(adminAccount.getLogin());
-//        System.out.println(adminAccount.getPassword());
-//        AdminAccount userFromDb = adminAccountRepository.findByLogin(adminAccount.getLogin());
-//        if (userFromDb != null)
-//        {
-//            throw new Exception("user exist");
-//        }
-//        adminAccount.setRoles(Collections.singleton(Role.USER));
-//        adminAccount.setActive(true);
-//        adminAccountRepository.save(adminAccount);
-//        AdminAccount finded = adminAccountRepository.findByLogin(adminAccount.getLogin());
-//        System.out.println(finded.getLogin());
-//        System.out.println(finded.getPassword());
-//        System.out.println("add finish");
-//    }
-
     public void addAdminAccount(AdminAccount adminAccount, Account account) throws Exception {
         AdminAccount userFromDb = adminAccountRepository.findByLogin(adminAccount.getLogin());
         if (userFromDb != null)
         {
             throw new Exception("admin account exist");
         }
-        System.out.println("add admin account");
         adminAccount.setAccount(account);
         adminAccount.setRoles(Collections.singleton(Role.USER));
         adminAccount.setActive(true);
         adminAccountRepository.save(adminAccount);
-        AdminAccount finded = adminAccountRepository.findByLogin(adminAccount.getLogin());
-        System.out.println(finded.getLogin());
+    }
+
+    public AdminAccount editAdminAccount(Long id) {
+        return adminAccountRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid admin_account Id:" + id));
+    }
+
+    public void deleteAdminAccount(Long id) {
+        AdminAccount adminAccount = adminAccountRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
+        adminAccountRepository.delete(adminAccount);
+    }
+
+    public List<AdminAccount> getAllAdminAccounts() {
+        return adminAccountRepository.findAll();
+    }
+
+    public void updateAdminAccount(AdminAccount adminAccount, Account account) {
+        if (isNull(adminAccount.getAccount()))
+        {
+            adminAccount.setAccount(account);
+        }
+        adminAccountRepository.save(adminAccount);
+    }
+
+    public AdminAccount getAdminAccountByLogin(String login) {
+        return adminAccountRepository.findByLogin(login);
+    }
+
+    public AdminAccount getAdminAccountById(Long id) {
+        return adminAccountRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
     }
 }

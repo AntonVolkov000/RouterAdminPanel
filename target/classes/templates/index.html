@@ -3,39 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Users</title>
+    <title>Main Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 <body>
-<div th:switch="${adminAccounts}" class="container my-5">
+<div th:object="${adminAccount}" class="container my-5">
     <div class="row">
-        <div class="col-md-6">
-            <h2 th:case="null">No AdminAccounts.</h2>
-            <div th:case="*">
-                <h2 class="my-5">AdminAccounts</h2>
-                <table border="1">
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Login</th>
-                        <th>PasswordHash</th>
-                        <th>AccountNumber</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="adminAccount: ${adminAccounts}">
-                        <td th:text="${adminAccount.id}"></td>
-                        <td th:text="${adminAccount.login}"></td>
-                        <td th:text="${adminAccount.password}"></td>
-                        <td th:text="${adminAccount.account.accountNumber}"></td>
-                        <td><a th:href="@{/edit/{id}(id=${adminAccount.id})}">EDIT</a></td>
-                        <td><a th:href="@{/delete/{id}(id=${adminAccount.id})}">DELETE</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p class="my-5"><a href="/new">Add AdminAccount</a></p>
+        <h2>Главная страница административной панели роутера</h2>
+        <h3>Добро пожаловать, <span th:text="${adminAccount.getLogin()}"></span>!</h3>
+        <div>
+            <a th:href="@{/adminAccount/{id}(id=${adminAccount.id})}">
+                <input type="submit" value="Информация об аккаунте"/>
+            </a>
         </div>
     </div>
 </div>

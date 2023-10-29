@@ -1,13 +1,16 @@
 package application.services;
 
 import application.model.Account;
+import application.model.AdminAccount;
 import application.repository.AccountRepository;
 import application.repository.AdminAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -16,7 +19,8 @@ public class AccountService {
     private final AccountRepository accountRepository;
     @Autowired
     public AccountService( AccountRepository accountRepository)
-    { this.accountRepository = accountRepository;
+    {
+        this.accountRepository = accountRepository;
     }
 
     public Account generateNewAccount()
@@ -24,6 +28,32 @@ public class AccountService {
         Account newAccount = new Account(generateAccountNumber(), generateSum());
         accountRepository.save(newAccount);
         return newAccount;
+    }
+
+    public Account getAccountById(Long id) {
+        return accountRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid account mapped with " +
+                                                                "adminAccount, id:" + id));
+    }
+
+    public void deleteAccount(Long id) {
+        Account account = accountRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
+        accountRepository.delete(account);
+    }
+
+    public List<Account> getAllAccounts() {
+        return accountRepository.findAll();
+    }
+
+    public Account getAccountByNumber(String accountNumber) {
+        return accountRepository.getAccountByAccountNumber(accountNumber).get(0);
+    }
+
+    public double getSumByAccountNumber(String accountNumber) {
+        return getAccountByNumber(accountNumber).getSum();
     }
 
     public String generateAccountNumber() {

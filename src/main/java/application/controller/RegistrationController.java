@@ -6,10 +6,14 @@ import application.model.AdminAccount;
 import application.services.AccountService;
 import application.services.AdminAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class RegistrationController {
@@ -34,13 +38,21 @@ public class RegistrationController {
         {
             Account account = accountService.generateNewAccount();
             adminAccountService.addAdminAccount(adminAccount, account);
-
             return "redirect:/login";
         }
         catch (Exception ex)
         {
-            model.addAttribute("message", "admin account exists");
+            model.addAttribute("message",
+                    "Аккаунт администратора с таким именем уже существует!");
             return "registration";
         }
+    }
+
+    @RequestMapping("/")
+    public String index(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AdminAccount adminAccount = adminAccountService.getAdminAccountByLogin(auth.getName());
+        model.addAttribute("adminAccount", adminAccount);
+        return "index";
     }
 }

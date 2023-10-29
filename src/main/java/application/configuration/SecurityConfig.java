@@ -15,8 +15,6 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder()
     {
-        System.out.println("in password encoder");
-
         return NoOpPasswordEncoder.getInstance();
     }
 
@@ -25,6 +23,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/registration", "/login", "/logout").permitAll()
                         .requestMatchers("/delete/**").hasRole("ADMIN")
+                        .requestMatchers("/adminAccount/admins").hasRole("ADMIN")
                         .requestMatchers("/create/**").hasAuthority("CREATOR")
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults());
