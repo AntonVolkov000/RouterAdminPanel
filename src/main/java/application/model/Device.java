@@ -2,6 +2,8 @@ package application.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "devices")
 public class Device {
@@ -22,6 +24,10 @@ public class Device {
     @ManyToOne
     @JoinColumn(name = "connection_device_id")
     private ConnectionDeviceType connectionDeviceType;
+
+    @ManyToOne
+    @JoinColumn(name = "general_config_id")
+    private GeneralConfig generalConfig;
 
     public Long getDeviceId() {
         return deviceId;
@@ -53,6 +59,14 @@ public class Device {
 
     public ConnectionDeviceType getConnectionDeviceType() {
         return connectionDeviceType;
+    }
+
+    public GeneralConfig getGeneralConfig() {
+        return generalConfig;
+    }
+
+    public void setGeneralConfig(GeneralConfig generalConfig) {
+        this.generalConfig = generalConfig;
     }
 
     public void setConnectionDeviceType(ConnectionDeviceType connectionDeviceType) {
