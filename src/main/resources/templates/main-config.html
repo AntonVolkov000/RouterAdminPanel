@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Настройки интернета</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+<form action="#" th:action="@{/config/update/{id}(id=${config.configId})}" th:object="${config}">
+    <h2 class="my-1">Настройки интернета</h2>
+    <div class="row">
+        <table>
+            <thead>
+            <tr>
+                <th>IP-адрес</th>
+                <th>Маска</th>
+                <th>Шлюз</th>
+                <th>Тип</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td th:text="${config.ip}"></td>
+                <td th:text="${config.mask}"></td>
+                <td th:text="${config.gate}"></td>
+                <td th:text="${config.connectionInternetType.connectionInternetName}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <input type="submit" class="btn btn-primary" value="Обновить настройки">
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

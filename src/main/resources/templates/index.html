@@ -17,6 +17,12 @@
                 <input type="submit" value="Информация об аккаунте"/>
             </a>
         </div>
+
+        <div>
+            <a th:href="@{/generalConfig/config/{id}(id=${adminAccount.adminAccountId})}">
+                <input type="submit" value="Настройки интернета"/>
+            </a>
+        </div>
     </div>
 </div>
 </body>
