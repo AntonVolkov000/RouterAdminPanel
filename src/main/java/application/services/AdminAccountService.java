@@ -1,18 +1,20 @@
 package application.services;
 
-import application.model.AdminAccount;
 import application.model.Account;
+import application.model.AdminAccount;
 import application.model.Role;
+import application.model.TelegramUser;
 import application.repository.AdminAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -87,5 +89,16 @@ public class AdminAccountService implements UserDetailsService {
         return adminAccountRepository
                 .findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
+    }
+
+    public void loadData(Account account, List<TelegramUser> telegramUsers) {
+        AdminAccount admin1 = new AdminAccount();
+        admin1.setLogin("admin1");
+        admin1.setPassword("1");
+        admin1.setActive(false);
+        adminAccountRepository.save(admin1);
+        admin1.setAccount(account);
+        admin1.setTelegramUsers(new HashSet<>(telegramUsers));
+        adminAccountRepository.save(admin1);
     }
 }

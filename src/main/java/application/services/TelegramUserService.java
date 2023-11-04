@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class TelegramUserService {
@@ -24,5 +25,19 @@ public class TelegramUserService {
         return telegramUserRepository
                 .findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Telegram User Id: " + id));
+    }
+    public TelegramUser getTelegramUserByTelegramUserName(String telegramUserName) {
+        return telegramUserRepository.findByTelegramUserName(telegramUserName);
+    }
+
+    public static long generateTelegramUserId()
+    {
+        long start = 99_999_999; // 9 цифр
+        long end = 1_000_000_000L;
+        return ThreadLocalRandom.current().nextLong(start, end);
+    }
+    public void loadData(){
+        telegramUserRepository.save(new TelegramUser(generateTelegramUserId(), "test1"));
+        telegramUserRepository.save(new TelegramUser(generateTelegramUserId(), "test2"));
     }
 }

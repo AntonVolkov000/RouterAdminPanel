@@ -59,12 +59,4 @@ public class TelegramUser {
     {
 
     }
-
-    public static long generateTelegramUserId()
-    {
-        long start = 99_999_999; // 9 цифр
-        long end = 1_000_000_000L;
-        Random generator =  new Random(start);
-        return generator.nextLong(end);
-    }
 }
