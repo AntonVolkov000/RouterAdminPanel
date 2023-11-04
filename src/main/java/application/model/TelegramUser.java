@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.List;
 
 @Entity
-@Table(name = "telegram_users")
+@Table(name = "telegram_user")
 public class TelegramUser {
     @Id
     @Column(name = "telegram_user_id")
@@ -39,6 +39,14 @@ public class TelegramUser {
     public String getTelegramUserName ()
     {
         return this.telegramUserName;
+    }
+
+    public List<AdminAccount> getAdminAccounts() {
+        return adminAccounts;
+    }
+
+    public void setAdminAccounts(List<AdminAccount> adminAccounts) {
+        this.adminAccounts = adminAccounts;
     }
 
     public TelegramUser(long id, String telegramUserName)

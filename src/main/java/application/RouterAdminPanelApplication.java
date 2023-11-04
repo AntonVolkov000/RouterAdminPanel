@@ -13,12 +13,12 @@ public class RouterAdminPanelApplication {
         SpringApplication.run(RouterAdminPanelApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner telegramUsersDataLoader(TelegramUserRepository repo) {
-
-        return args -> {
-            repo.save(new TelegramUser(TelegramUser.generateTelegramUserId(), "test1"));
-            repo.save(new TelegramUser(454654725, "vapVelichko"));
-        };
-    }
+//    @Bean
+//    public CommandLineRunner telegramUsersDataLoader(TelegramUserRepository repo) {
+//
+//        return args -> {
+//            repo.save(new TelegramUser(TelegramUser.generateTelegramUserId(), "test1"));
+//            repo.save(new TelegramUser(454654725, "vapVelichko"));
+//        };
+//    }
 }

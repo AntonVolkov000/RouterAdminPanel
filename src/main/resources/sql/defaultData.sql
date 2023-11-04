@@ -1,4 +1,5 @@
-TRUNCATE general_config, config, wifi, devices, connection_internet_type, wifi_modes, connection_device_type;
+TRUNCATE user_role, account, telegram_user, admin_account_telegram_user, admin_account,
+general_config, config, wifi, devices, connection_internet_type, wifi_modes, connection_device_type;
 
 INSERT INTO connection_internet_type (connection_internet_id, connection_internet_name)
 VALUES (1, 'Статический IP-адрес'), (2, 'Динамический IP-адрес');
@@ -28,5 +29,23 @@ VALUES (1, null, null, null, 2);
 INSERT INTO wifi (wifi_id, ssid, password, mode_id)
 VALUES (1, null, null, 1);
 
+INSERT INTO account (account_id, account_number, sum)
+VALUES
+(1, '5015697192', 370396.13),
+(2, '4762552586', 263494.76),
+(3, '5949560421', 856609.26);
+
+INSERT INTO admin_account (admin_account_id, login, password, active, account_id)
+VALUES
+(1, 'admin1', '$2a$10$17NEW8k6jFPfRKWdb4DUfONpZiN9mFxEqht4xlktNF3.6cDI6Fv/S', false, 1),
+(2, 'admin2', '$2a$10$fdCTG6G6uHzlgGITxUW7KuE8jpFog/.ZpcbHcipwlFGLy5s4qaptS', false, 2),
+(3, 'admin3', '$2a$10$hnIEcAaik1wigWcuv2VNPecnpHbqeyGOCxLOwz1kVcvSzSLMNygBW', false, 3);
+
 INSERT INTO general_config (general_config_id, admin_account_id, config_id, wifi_id)
-VALUES (1, null, 1, 1);
+VALUES (1, 1, 1, 1);
+
+INSERT INTO telegram_user(telegram_user_id, telegram_user_name)
+VALUES (284030265, 'test1');
+
+INSERT INTO admin_account_telegram_user(telegram_user_id, admin_account_id)
+VALUES (1, 284030265);
