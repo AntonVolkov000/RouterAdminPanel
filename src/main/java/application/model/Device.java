@@ -33,6 +33,10 @@ public class Device {
         return deviceId;
     }
 
+    public void setDeviceId(Long deviceId) {
+        this.deviceId = deviceId;
+    }
+
     public String getDeviceName() {
         return deviceName;
     }
@@ -61,15 +65,15 @@ public class Device {
         return connectionDeviceType;
     }
 
+    public void setConnectionDeviceType(ConnectionDeviceType connectionDeviceType) {
+        this.connectionDeviceType = connectionDeviceType;
+    }
+
     public GeneralConfig getGeneralConfig() {
         return generalConfig;
     }
 
     public void setGeneralConfig(GeneralConfig generalConfig) {
         this.generalConfig = generalConfig;
-    }
-
-    public void setConnectionDeviceType(ConnectionDeviceType connectionDeviceType) {
-        this.connectionDeviceType = connectionDeviceType;
     }
 }

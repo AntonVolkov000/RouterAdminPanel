@@ -9,35 +9,33 @@ import java.util.List;
 public class GeneralConfig {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @Column(name = "general_config_id")
+    private Long general_config_id;
 
     @OneToOne(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    @MapsId
     @JoinColumn(name = "admin_account_id")
     private AdminAccount adminAccount;
 
     @OneToOne(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    @MapsId
     @JoinColumn(name = "config_id")
     private Config config;
 
     @OneToOne(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    @MapsId
     @JoinColumn(name = "wifi_id")
     private Wifi wifi;
 
     @OneToMany(mappedBy = "generalConfig")
     private List<Device> devices;
 
-    public long getId() {
-        return id;
+    public long getGeneralConfigId() {
+        return general_config_id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setGeneralConfigId(long general_config_id) {
+        this.general_config_id = general_config_id;
     }
 
     public AdminAccount getAdminAccount() {

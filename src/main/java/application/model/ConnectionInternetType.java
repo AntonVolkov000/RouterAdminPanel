@@ -22,6 +22,10 @@ public class ConnectionInternetType {
         return connectionInternetId;
     }
 
+    public void setConnectionInternetId(Long connectionInternetId) {
+        this.connectionInternetId = connectionInternetId;
+    }
+
     public String getConnectionInternetName() {
         return connectionInternetName;
     }
@@ -32,5 +36,9 @@ public class ConnectionInternetType {
 
     public List<Config> getConfigs() {
         return configs;
+    }
+
+    public void setConfigs(List<Config> configs) {
+        this.configs = configs;
     }
 }

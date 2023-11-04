@@ -23,8 +23,15 @@ public class Config {
     @JoinColumn(name = "connection_internet_id")
     private ConnectionInternetType connectionInternetType;
 
+    @OneToOne (mappedBy="config")
+    private GeneralConfig generalConfig;
+
     public Long getConfigId() {
         return configId;
+    }
+
+    public void setConfigId(Long configId) {
+        this.configId = configId;
     }
 
     public String getIp() {
@@ -57,5 +64,13 @@ public class Config {
 
     public void setConnectionInternetType(ConnectionInternetType connectionInternetType) {
         this.connectionInternetType = connectionInternetType;
+    }
+
+    public GeneralConfig getGeneralConfig() {
+        return generalConfig;
+    }
+
+    public void setGeneralConfig(GeneralConfig generalConfig) {
+        this.generalConfig = generalConfig;
     }
 }

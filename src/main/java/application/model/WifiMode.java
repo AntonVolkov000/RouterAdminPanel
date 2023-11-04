@@ -15,11 +15,15 @@ public class WifiMode {
     @Column(name = "mode_name")
     private String modeName ;
 
-    @OneToMany(mappedBy = "mode")
+    @OneToMany(mappedBy = "wifiMode")
     private List<Wifi> wifis;
 
     public Long getModeId() {
         return modeId;
+    }
+
+    public void setModeId(Long modeId) {
+        this.modeId = modeId;
     }
 
     public String getModeName() {
@@ -32,5 +36,9 @@ public class WifiMode {
 
     public List<Wifi> getWifis() {
         return wifis;
+    }
+
+    public void setWifis(List<Wifi> wifis) {
+        this.wifis = wifis;
     }
 }

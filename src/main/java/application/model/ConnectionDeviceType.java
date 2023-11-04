@@ -22,6 +22,10 @@ public class ConnectionDeviceType {
         return connectionDeviceId;
     }
 
+    public void setConnectionDeviceId(Long connectionDeviceId) {
+        this.connectionDeviceId = connectionDeviceId;
+    }
+
     public String getConnectionDeviceName() {
         return connectionDeviceName;
     }
@@ -32,5 +36,9 @@ public class ConnectionDeviceType {
 
     public List<Device> getDevices() {
         return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
     }
 }

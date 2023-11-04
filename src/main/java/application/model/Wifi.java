@@ -18,10 +18,17 @@ public class Wifi {
 
     @ManyToOne
     @JoinColumn(name = "mode_id")
-    private WifiMode mode;
+    private WifiMode wifiMode;
+
+    @OneToOne (mappedBy="wifi")
+    private GeneralConfig generalConfig;
 
     public Long getWifiId() {
         return wifiId;
+    }
+
+    public void setWifiId(Long wifiId) {
+        this.wifiId = wifiId;
     }
 
     public String getSsid() {
@@ -40,11 +47,19 @@ public class Wifi {
         this.password = password;
     }
 
-    public WifiMode getMode() {
-        return mode;
+    public WifiMode getWifiMode() {
+        return wifiMode;
     }
 
     public void setWifiMode(WifiMode wifiMode) {
-        this.mode = wifiMode;
+        this.wifiMode = wifiMode;
+    }
+
+    public GeneralConfig getGeneralConfig() {
+        return generalConfig;
+    }
+
+    public void setGeneralConfig(GeneralConfig generalConfig) {
+        this.generalConfig = generalConfig;
     }
 }

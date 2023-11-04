@@ -1,16 +1,10 @@
-TRUNCATE config, connection_internet_type;
+TRUNCATE general_config, config, wifi, devices, connection_internet_type, wifi_modes, connection_device_type;
 
 INSERT INTO connection_internet_type (connection_internet_id, connection_internet_name)
 VALUES (1, 'Статический IP-адрес'), (2, 'Динамический IP-адрес');
 
-
-TRUNCATE wifi, wifi_modes;
-
 INSERT INTO wifi_modes (mode_id, mode_name)
 VALUES (1, '802.11ax'), (2, '802.11b/g/n'), (3, '802.11b/g/n/ax');
-
-
-TRUNCATE devices, connection_device_type;
 
 INSERT INTO connection_device_type (connection_device_id, connection_device_name)
 VALUES (1, 'Проводной'), (2, 'Беспроводной');
@@ -27,3 +21,12 @@ VALUES
 (8, 'AntonPC', '192.168.0.224', 'F1-2B-3C-4D-5E-6F', 1),
 (9, 'Iphone10', '192.168.0.107', '2C-58-41-9A-76-F3', 2),
 (10, 'Galaxy-A70', '192.168.0.10', '8A-9B-C7-F4-D6-02', 2);
+
+INSERT INTO config (config_id, ip, mask, gate, connection_internet_id)
+VALUES (1, null, null, null, 2);
+
+INSERT INTO wifi (wifi_id, ssid, password, mode_id)
+VALUES (1, null, null, 1);
+
+INSERT INTO general_config (general_config_id, admin_account_id, config_id, wifi_id)
+VALUES (1, null, 1, 1);
