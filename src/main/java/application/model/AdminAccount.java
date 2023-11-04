@@ -19,7 +19,8 @@ import javax.crypto.spec.PBEKeySpec;
 public class AdminAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @Column(name = "admin_account_id")
+    private long adminAccountId;
 
     @Column(name = "login")
     private String login;
@@ -39,7 +40,6 @@ public class AdminAccount {
     // Администратор может иметь только один лицевой счет
     @OneToOne(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    @MapsId
     @JoinColumn(name = "account_id")
     private Account account;
 
@@ -54,16 +54,19 @@ public class AdminAccount {
             uniqueConstraints = @UniqueConstraint(columnNames = {"telegram_user_id", "admin_account_id"}))
     private Set<TelegramUser> telegramUsers = new HashSet<>();
 
+    public long getAdminAccountId() {
+        return adminAccountId;
+    }
+
+    public void setAdminAccountId(long adminAccountId) {
+        this.adminAccountId = adminAccountId;
+    }
     public void setLogin(String newLogin) {
         this.login = newLogin;
     }
 
     public void setPassword(String password) {
         this.password = new SecurityConfig().encodePassword(password);
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getLogin() {
@@ -74,9 +77,6 @@ public class AdminAccount {
         return this.password;
     }
 
-    public long getId() {
-        return this.id;
-    }
 
     public Account getAccount ()
     {
@@ -102,6 +102,14 @@ public class AdminAccount {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Set<TelegramUser> getTelegramUsers() {
+        return telegramUsers;
+    }
+
+    public void setTelegramUsers(Set<TelegramUser> telegramUsers) {
+        this.telegramUsers = telegramUsers;
     }
 
     public AdminAccount()

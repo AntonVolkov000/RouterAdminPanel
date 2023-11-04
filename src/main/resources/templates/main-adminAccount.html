@@ -23,13 +23,13 @@
 
             <tbody>
             <tr>
-                <td th:text="${adminAccount.id}"></td>
+                <td th:text="${adminAccount.adminAccountId}"></td>
                 <td th:text="${adminAccount.login}"></td>
                 <td th:text="${adminAccount.account.accountNumber}"></td>
                 <td th:text="${adminAccount.account.sum}"></td>
 
-                <td><a th:href="@{edit/{id}(id=${adminAccount.id})}">Редактировать аккаунт</a></td>
-                <td><a th:href="@{delete/{id}(id=${adminAccount.id})}">Удалить аккаунт</a></td>
+                <td><a th:href="@{edit/{id}(id=${adminAccount.adminAccountId})}">Редактировать аккаунт</a></td>
+                <td><a th:href="@{delete/{id}(id=${adminAccount.adminAccountId})}">Удалить аккаунт</a></td>
             </tr>
             </tbody>
         </table>

@@ -66,6 +66,7 @@ public class AdminAccountController {
     public String updateAdminAccount(@PathVariable("id") long id, @Valid AdminAccount adminAccount,
                                      Model model) {
         Account account = accountService.getAccountById(id);
+        adminAccount.setAdminAccountId(id);
         adminAccountService.updateAdminAccount(adminAccount, account);
         model.addAttribute("adminAccount", adminAccount);
         return "redirect:/login";

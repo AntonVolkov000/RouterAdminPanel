@@ -13,7 +13,7 @@
         <h2>Главная страница административной панели роутера</h2>
         <h3>Добро пожаловать, <span th:text="${adminAccount.getLogin()}"></span>!</h3>
         <div>
-            <a th:href="@{/adminAccount/{id}(id=${adminAccount.id})}">
+            <a th:href="@{/adminAccount/{id}(id=${adminAccount.adminAccountId})}">
                 <input type="submit" value="Информация об аккаунте"/>
             </a>
         </div>

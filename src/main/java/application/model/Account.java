@@ -12,19 +12,23 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @Column(name = "account_id")
+    private long accountId;
     @Column(name = "account_number")
     private String accountNumber;
 
     @Column(name = "sum")
     private double sum;
 
-    public long getId() {
-        return id;
+    @OneToOne(mappedBy = "account")
+    private AdminAccount adminAccount;
+
+    public long getAccountId() {
+        return accountId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
     }
     public void setAccountNumber(String accountNumber)
     {
@@ -41,6 +45,14 @@ public class Account {
 
     public double getSum() {
         return this.sum;
+    }
+
+    public AdminAccount getAdminAccount() {
+        return adminAccount;
+    }
+
+    public void setAdminAccount(AdminAccount adminAccount) {
+        this.adminAccount = adminAccount;
     }
 
     public Account(String accountNumber, double sum) {
