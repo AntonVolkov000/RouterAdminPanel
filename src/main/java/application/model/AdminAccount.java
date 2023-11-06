@@ -54,6 +54,9 @@ public class AdminAccount {
             uniqueConstraints = @UniqueConstraint(columnNames = {"telegram_user_id", "admin_account_id"}))
     private Set<TelegramUser> telegramUsers = new HashSet<>();
 
+    @OneToOne (mappedBy="adminAccount")
+    private GeneralConfig generalConfig;
+
     public long getAdminAccountId() {
         return adminAccountId;
     }
@@ -110,6 +113,14 @@ public class AdminAccount {
 
     public void setTelegramUsers(Set<TelegramUser> telegramUsers) {
         this.telegramUsers = telegramUsers;
+    }
+
+    public GeneralConfig getGeneralConfig() {
+        return generalConfig;
+    }
+
+    public void setGeneralConfig(GeneralConfig generalConfig) {
+        this.generalConfig = generalConfig;
     }
 
     public AdminAccount()

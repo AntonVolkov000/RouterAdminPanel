@@ -10,7 +10,7 @@ public class GeneralConfig {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "general_config_id")
-    private Long general_config_id;
+    private Long generalConfigId;
 
     @OneToOne(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
@@ -30,12 +30,26 @@ public class GeneralConfig {
     @OneToMany(mappedBy = "generalConfig")
     private List<Device> devices;
 
-    public long getGeneralConfigId() {
-        return general_config_id;
+    public GeneralConfig(
+            long generalConfigId, AdminAccount adminAccount, Config config, Wifi wifi, List<Device> devices
+    ) {
+        this.generalConfigId = generalConfigId;
+        this.adminAccount = adminAccount;
+        this.config = config;
+        this.wifi = wifi;
+        this.devices = devices;
     }
 
-    public void setGeneralConfigId(long general_config_id) {
-        this.general_config_id = general_config_id;
+    public GeneralConfig() {
+
+    }
+
+    public long getGeneralConfigId() {
+        return generalConfigId;
+    }
+
+    public void setGeneralConfigId(long generalConfigId) {
+        this.generalConfigId = generalConfigId;
     }
 
     public AdminAccount getAdminAccount() {

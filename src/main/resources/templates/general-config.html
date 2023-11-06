@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>General Config</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    <div th:object="${config}">
+        <h2>Параметры интернета</h2>
+        <ul>
+            <li>IP-адрес: <span th:text="${config.ip}"></span></li>
+            <li>Маска подсети: <span th:text="${config.mask}"></span></li>
+            <li>Основной шлюз: <span th:text="${config.gate}"></span></li>
+            <li>Тип подключения: <span th:text="${config.connectionInternetType.connectionInternetName}"></span></li>
+        </ul>
+    </div>
+
+    <div th:object="${wifi}">
+        <h2>Параметры wifi</h2>
+        <ul>
+            <li>Имя сети (SSID): <span th:text="${wifi.ssid}"></span></li>
+            <li>Пароль: <span th:text="${wifi.password}"></span></li>
+            <li>Режим: <span th:text="${wifi.wifiMode.modeName}"></span></li>
+        </ul>
+    </div>
+
+</body>
+</html>

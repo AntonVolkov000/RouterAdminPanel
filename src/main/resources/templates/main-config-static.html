@@ -26,34 +26,17 @@
 
     <form
             id="config-form"
-            th:action="@{/config/update/{id}(id=${config.configId})}"
+            th:action="@{/config/change/{id}(id=${config.configId})}"
             th:attr="data-config-id=${config.configId}"
             th:object="${config}"
+            method="post"
     >
-        <div>
-            <table>
-                <thead>
-                <tr>
-                    <th>IP-адрес</th>
-                    <th>Маска</th>
-                    <th>Шлюз</th>
-                    <th>Тип</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr>
-                    <td th:text="${config.ip}"></td>
-                    <td th:text="${config.mask}"></td>
-                    <td th:text="${config.gate}"></td>
-                    <td th:text="${config.connectionInternetType.connectionInternetName}"></td>
-                </tr>
-                </tbody>
-            </table>
-            <div>
-                <input type="submit" class="btn btn-primary" value="Обновить настройки">
-            </div>
-        </div>
+        <ul>
+            <li>IP-адрес: <input type="text" name="ip" th:value="${config.ip}"></li>
+            <li>Маска подсети: <input type="text" name="mask" th:value="${config.mask}"/></li>
+            <li>Основной шлюз: <input type="text" name="gate" th:value="${config.gate}"></li>
+        </ul>
+        <input type="submit" value="Сохранить настройки">
     </form>
 
     <script type="text/javascript" th:src="@{/js/script.js}"></script>

@@ -1,10 +1,10 @@
 TRUNCATE user_role, account, telegram_user, admin_account_telegram_user, admin_account,
-general_config, config, wifi, devices, connection_internet_type, wifi_modes, connection_device_type;
+general_config, config, wifi, devices, connection_internet_type, wifi_mode, connection_device_type;
 
 INSERT INTO connection_internet_type (connection_internet_id, connection_internet_name)
 VALUES (1, 'Статический IP-адрес'), (2, 'Динамический IP-адрес');
 
-INSERT INTO wifi_modes (mode_id, mode_name)
+INSERT INTO wifi_mode (mode_id, mode_name)
 VALUES (1, '802.11ax'), (2, '802.11b/g/n'), (3, '802.11b/g/n/ax');
 
 INSERT INTO connection_device_type (connection_device_id, connection_device_name)

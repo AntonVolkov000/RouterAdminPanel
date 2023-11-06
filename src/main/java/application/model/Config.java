@@ -26,6 +26,21 @@ public class Config {
     @OneToOne (mappedBy="config")
     private GeneralConfig generalConfig;
 
+    public Config(
+            long configId, String ip, String mask, String gate,
+            ConnectionInternetType connectionInternetType
+    ) {
+        this.configId = configId;
+        this.ip = ip;
+        this.mask = mask;
+        this.gate = gate;
+        this.connectionInternetType = connectionInternetType;
+    }
+
+    public Config() {
+
+    }
+
     public Long getConfigId() {
         return configId;
     }

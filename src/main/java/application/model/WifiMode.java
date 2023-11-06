@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "wifi_modes")
+@Table(name = "wifi_mode")
 public class WifiMode {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
