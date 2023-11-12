@@ -1,6 +1,5 @@
 package application.controller;
 
-import application.model.AdminAccount;
 import application.model.Config;
 import application.model.ConnectionInternetType;
 import application.services.ConfigService;
@@ -35,11 +34,11 @@ public class ConfigController {
         if (isStaticConfig) {
             Config config = configService.getConfigById(id);
             model.addAttribute("config", config);
-            return "main-config-static";
+            return "config-static-main";
         } else {
             Config config = configService.prepareConfig(id);
             model.addAttribute("config", config);
-            return "main-config";
+            return "config-dynamic-main";
         }
     }
 
@@ -49,7 +48,7 @@ public class ConfigController {
         model.addAttribute("config", config);
         List<ConnectionInternetType> connectionInternetTypes = connectionInternetTypeService.getAllConnectionInternetTypes();
         model.addAttribute("connectionInternetTypes", connectionInternetTypes);
-        return "main-config";
+        return "config-dynamic-main";
     }
 
     @PostMapping("/change/{id}")
@@ -58,7 +57,7 @@ public class ConfigController {
         model.addAttribute("config", config);
         List<ConnectionInternetType> connectionInternetTypes = connectionInternetTypeService.getAllConnectionInternetTypes();
         model.addAttribute("connectionInternetTypes", connectionInternetTypes);
-        return "main-config-static";
+        return "config-static-main";
     }
 
     @GetMapping("/{id}/connection-internet-type/{connectionInternetTypeId}")

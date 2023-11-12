@@ -28,6 +28,6 @@ public class GeneralConfigController {
         Wifi wifi = generalConfig.getWifi();
         model.addAttribute("config", config);
         model.addAttribute("wifi", wifi);
-        return "general-config";
+        return "general-config-main";
     }
 }

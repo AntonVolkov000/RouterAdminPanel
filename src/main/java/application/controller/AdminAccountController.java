@@ -54,12 +54,7 @@ public class AdminAccountController {
     public String editAdminAccount(@PathVariable("id") long id, Model model) {
         AdminAccount adminAccount = adminAccountService.editAdminAccount(id);
         model.addAttribute("adminAccount", adminAccount);
-        return "update-adminAccount";
-    }
-    @GetMapping("/delete/{id}")
-    public String deleteAdminAccount(@PathVariable("id") long id, Model model) {
-        adminAccountService.deleteAdminAccount(id);
-        return "registration";
+        return "admin-account-update";
     }
 
     @PostMapping("/update/{id}")
@@ -75,13 +70,13 @@ public class AdminAccountController {
     @GetMapping("/")
     public String adminAccount(AdminAccount adminAccount, Model model) {
         model.addAttribute("adminAccount", adminAccount);
-        return "main-adminAccount";
+        return "admin-account-main";
     }
 
     @GetMapping("/{id}")
     public String adminAccountById(@PathVariable("id") long id, Model model) {
         AdminAccount adminAccount = adminAccountService.getAdminAccountById(id);
         model.addAttribute("adminAccount", adminAccount);
-        return "main-adminAccount";
+        return "admin-account-main";
     }
 }
