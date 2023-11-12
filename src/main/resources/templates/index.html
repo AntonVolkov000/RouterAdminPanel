@@ -8,30 +8,30 @@
 
 </head>
 <body>
-<div th:object="${adminAccount}" class="container my-5">
+<div th:object="${generalConfig}" class="container my-5">
     <div class="row">
         <h2>Главная страница административной панели роутера</h2>
-        <h3>Добро пожаловать, <span th:text="${adminAccount.getLogin()}"></span>!</h3>
+        <h3>Добро пожаловать, <span th:text="${generalConfig.adminAccount.getLogin()}"></span>!</h3>
         <div>
-            <a th:href="@{/adminAccount/{id}(id=${adminAccount.adminAccountId})}">
+            <a th:href="@{/adminAccount/{id}(id=${generalConfig.adminAccount.adminAccountId})}">
                 <input type="submit" value="Информация об аккаунте"/>
             </a>
         </div>
 
         <div>
-            <a th:href="@{/config/{id}(id=${adminAccount.generalConfig.config.configId})}">
+            <a th:href="@{/config/{id}(id=${generalConfig.config.configId})}">
                 <input type="submit" value="Настройки интернета"/>
             </a>
         </div>
 
         <div>
-            <a th:href="@{/wifi/{id}(id=${adminAccount.generalConfig.wifi.wifiId})}">
+            <a th:href="@{/wifi/{id}(id=${generalConfig.wifi.wifiId})}">
                 <input type="submit" value="Настройки беспроводного режима"/>
             </a>
         </div>
 
         <div>
-            <a th:href="@{/generalConfig/{id}(id=${adminAccount.generalConfig.generalConfigId})}">
+            <a th:href="@{/generalConfig/{id}(id=${generalConfig.generalConfigId})}">
                 <input type="submit" value="Общие настройки"/>
             </a>
         </div>

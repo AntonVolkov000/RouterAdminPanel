@@ -31,16 +31,14 @@ public class GeneralConfigService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid generalConfig Id:" + id));
     }
 
-    public void loadData(){
-        Config config = configRepository
-                .findById(1L)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid config Id:" + 1));
-//        Wifi wifi = wifiRepository
-//                .findById(1L)
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid wifi Id:" + 1));
-        GeneralConfig generalConfig = new GeneralConfig(
-                1, null, config, null, null
-        );
+    public GeneralConfig getGeneralConfigByAdminLogin (String adminAccountLogin) {
+        return generalConfigRepository.findByAdminAccountLogin(adminAccountLogin);
+    }
+
+    public GeneralConfig updateConfigs(GeneralConfig generalConfig, Wifi wifi, Config config) {
+        generalConfig.setWifi(wifi);
+        generalConfig.setConfig(config);
         generalConfigRepository.save(generalConfig);
+        return generalConfig;
     }
 }

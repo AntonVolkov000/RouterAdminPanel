@@ -36,8 +36,4 @@ public class TelegramUserService {
         long end = 1_000_000_000L;
         return ThreadLocalRandom.current().nextLong(start, end);
     }
-    public void loadData(){
-        telegramUserRepository.save(new TelegramUser(generateTelegramUserId(), "test1"));
-        telegramUserRepository.save(new TelegramUser(generateTelegramUserId(), "test2"));
-    }
 }

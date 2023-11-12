@@ -73,12 +73,4 @@ public class AccountService {
         // и в этом случае округление в меньшую сторону.
         return bd.doubleValue();
     }
-
-    public void loadData() {
-        System.out.println("in load data");
-        for (int i = 0; i < 3; i++)
-        {
-            accountRepository.save(new Account(generateAccountNumber(), generateSum()));
-        }
-    }
 }

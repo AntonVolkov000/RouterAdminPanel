@@ -69,7 +69,6 @@ public class ConfigService {
     }
 
     private String generateGate(String ip) {
-        String[] ipAddressArray = ip.split("\\.");
         String[] gateAddressArray = ip.split("\\.");
         String zero = "0";
         String unit = "1";
@@ -131,18 +130,9 @@ public class ConfigService {
         Config config = getConfigById(configId);
         ConnectionInternetType connectionInternetType = connectionInternetTypeRepository
                 .findById(connectionInternetTypeId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid connectionInternetType Id:" + connectionInternetTypeId));;
+                .orElseThrow(() -> new IllegalArgumentException("Invalid connectionInternetType Id:" + connectionInternetTypeId));
         config.setConnectionInternetType(connectionInternetType);
         configRepository.save(config);
         return config;
-    }
-
-    public void loadData() {
-        ConnectionInternetType connectionInternetType = connectionInternetTypeRepository
-                .findById(2L)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid connectionInternetType Id:" + 2));
-        configRepository.save(new Config(
-                1, null, null, null, connectionInternetType
-        ));
     }
 }
