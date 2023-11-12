@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Настройки беспроводного режима</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+<h2>Настройки беспроводного режима</h2>
+
+<form
+        id="wifi-form"
+        th:action="@{/wifi/change/{id}(id=${wifi.wifiId})}"
+        th:object="${wifi}"
+        method="post"
+>
+    <ul>
+        <li>Имя сети (SSID): <input type="text" name="ssid" th:value="${wifi.ssid}"></li>
+        <li>Пароль: <input type="text" name="password" th:value="${wifi.password}"/></li>
+        <li>Режим:
+                <select name="wifiMode">
+                    <option
+                        th:each="wifiMode : ${wifiModes}"
+                        th:value="${wifiMode.modeName}"
+                        th:selected="${wifiMode.modeName eq wifi.wifiMode.modeName}"
+                        th:text="${wifiMode.modeName}">
+                    </option>
+                </select>
+        </li>
+    </ul>
+    <input type="submit" value="Сохранить настройки">
+</form>
+
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>

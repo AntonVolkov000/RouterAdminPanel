@@ -80,7 +80,5 @@ public class AccountService {
         {
             accountRepository.save(new Account(generateAccountNumber(), generateSum()));
         }
-//            repo.save(new TelegramUser(TelegramUser.generateTelegramUserId(), "test1"));
-//            repo.save(new TelegramUser(454654725, "vapVelichko"));
     }
 }

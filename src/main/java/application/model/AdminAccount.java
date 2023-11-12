@@ -3,16 +3,8 @@ package application.model;
 import application.configuration.SecurityConfig;
 import jakarta.persistence.*;
 
-import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
-import java.security.SecureRandom;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 
 @Entity
 @Table(name = "admin_account")
@@ -126,32 +118,5 @@ public class AdminAccount {
     public AdminAccount()
     {
 
-    }
-
-    public AdminAccount (String login, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        this.login = login;
-        this.password = password;
-//        this.setPassword(password);
-    }
-
-    public static String generatePassword (int passwordLen)
-    {
-        String Capital_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String Small_chars = "abcdefghijklmnopqrstuvwxyz";
-        String numbers = "0123456789";
-        String symbols = "!@#$%^&*_=+-/.?<>)";
-
-        String values = Capital_chars + Small_chars + numbers + symbols;
-
-        Random randomGenerator = new Random();
-        char[] password = new char[passwordLen];
-
-        for (int i = 0; i < passwordLen; i++)
-        {
-            password[i] = values.charAt(
-                    randomGenerator.nextInt(values.length())
-            );
-        }
-        return String.valueOf(password);
     }
 }

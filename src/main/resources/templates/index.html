@@ -25,6 +25,12 @@
         </div>
 
         <div>
+            <a th:href="@{/wifi/{id}(id=${adminAccount.generalConfig.wifi.wifiId})}">
+                <input type="submit" value="Настройки беспроводного режима"/>
+            </a>
+        </div>
+
+        <div>
             <a th:href="@{/generalConfig/{id}(id=${adminAccount.generalConfig.generalConfigId})}">
                 <input type="submit" value="Общие настройки"/>
             </a>
