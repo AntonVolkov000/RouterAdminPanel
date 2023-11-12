@@ -19,8 +19,14 @@
         </div>
 
         <div>
-            <a th:href="@{/generalConfig/config/{id}(id=${adminAccount.adminAccountId})}">
+            <a th:href="@{/config/{id}(id=${adminAccount.generalConfig.config.configId})}">
                 <input type="submit" value="Настройки интернета"/>
+            </a>
+        </div>
+
+        <div>
+            <a th:href="@{/generalConfig/{id}(id=${adminAccount.generalConfig.generalConfigId})}">
+                <input type="submit" value="Общие настройки"/>
             </a>
         </div>
     </div>

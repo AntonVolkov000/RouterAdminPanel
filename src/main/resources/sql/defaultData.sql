@@ -31,9 +31,9 @@ VALUES (1, null, null, 1);
 
 INSERT INTO account (account_id, account_number, sum)
 VALUES
-(1, '5015697192', 370396.13),
-(2, '4762552586', 263494.76),
-(3, '5949560421', 856609.26);
+(1, '5015697192', 3703.13),
+(2, '4762552586', 2634.76),
+(3, '5949560421', 8566.26);
 
 INSERT INTO admin_account (admin_account_id, login, password, active, account_id)
 VALUES
