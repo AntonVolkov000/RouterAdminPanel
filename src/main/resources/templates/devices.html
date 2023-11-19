@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Подключенные устройства</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+    <div th:object="${devices}" id="devices" th:attr="data-general-config-id=${devices[0].generalConfig.generalConfigId}">
+        <h2>Проводные устройства</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th>IP-адрес</th>
+                    <th>Mac-адрес</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                        th:each="device : ${devices}"
+                        th:if="${device.connectionDeviceType.connectionDeviceName eq 'Проводной'}"
+                >
+                    <td th:text="${device.deviceName}"></td>
+                    <td th:text="${device.ipAddress}"></td>
+                    <td th:text="${device.macAddress}"></td>
+                    <td><button class="deleteDevice" th:attr="data-device-id=${device.deviceId}">x</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Беспроводные устройства</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Имя</th>
+                <th>IP-адрес</th>
+                <th>Mac-адрес</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+                    th:each="device : ${devices}"
+                    th:if="${device.connectionDeviceType.connectionDeviceName eq 'Беспроводной'}"
+            >
+                <td th:text="${device.deviceName}"></td>
+                <td th:text="${device.ipAddress}"></td>
+                <td th:text="${device.macAddress}"></td>
+                <td><button class="deleteDevice" th:attr="data-device-id=${device.deviceId}">x</button></td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <button id="add-new-device">Сгенерировать устройство</button>
+    </div>
+
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>

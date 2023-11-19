@@ -1,8 +1,6 @@
 package application.controller;
 
-import application.model.Config;
 import application.model.GeneralConfig;
-import application.model.Wifi;
 import application.services.ConfigService;
 import application.services.GeneralConfigService;
 import application.services.WifiService;
@@ -14,12 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class RegistrationController {
+public class MainController {
     private final GeneralConfigService generalConfigService;
     private final WifiService wifiService;
     private final ConfigService configService;
     @Autowired
-    public RegistrationController(
+    public MainController(
             GeneralConfigService generalConfigService,
             WifiService wifiService,
             ConfigService configService
