@@ -31,7 +31,7 @@ public class WifiController {
         List<WifiMode> wifiModes = wifiModeService.getAllWifiModes();
         model.addAttribute("wifi", wifi);
         model.addAttribute("wifiModes", wifiModes);
-        return "wifi-main";
+        return "wifi";
     }
 
     @PostMapping("/change/{id}")
@@ -44,6 +44,6 @@ public class WifiController {
         List<WifiMode> wifiModes = wifiModeService.getAllWifiModes();
         model.addAttribute("wifi", wifi);
         model.addAttribute("wifiModes", wifiModes);
-        return "wifi-main";
+        return "wifi";
     }
 }

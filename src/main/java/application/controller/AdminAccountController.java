@@ -70,13 +70,13 @@ public class AdminAccountController {
     @GetMapping("/")
     public String adminAccount(AdminAccount adminAccount, Model model) {
         model.addAttribute("adminAccount", adminAccount);
-        return "admin-account-main";
+        return "admin-account";
     }
 
     @GetMapping("/{id}")
     public String adminAccountById(@PathVariable("id") long id, Model model) {
         AdminAccount adminAccount = adminAccountService.getAdminAccountById(id);
         model.addAttribute("adminAccount", adminAccount);
-        return "admin-account-main";
+        return "admin-account";
     }
 }

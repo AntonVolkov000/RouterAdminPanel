@@ -34,11 +34,11 @@ public class ConfigController {
         if (isStaticConfig) {
             Config config = configService.getConfigById(id);
             model.addAttribute("config", config);
-            return "config-static-main";
+            return "config-static";
         } else {
             Config config = configService.prepareConfig(id);
             model.addAttribute("config", config);
-            return "config-dynamic-main";
+            return "config-dynamic";
         }
     }
 
@@ -48,7 +48,7 @@ public class ConfigController {
         model.addAttribute("config", config);
         List<ConnectionInternetType> connectionInternetTypes = connectionInternetTypeService.getAllConnectionInternetTypes();
         model.addAttribute("connectionInternetTypes", connectionInternetTypes);
-        return "config-dynamic-main";
+        return "config-dynamic";
     }
 
     @PostMapping("/change/{id}")
@@ -57,7 +57,7 @@ public class ConfigController {
         model.addAttribute("config", config);
         List<ConnectionInternetType> connectionInternetTypes = connectionInternetTypeService.getAllConnectionInternetTypes();
         model.addAttribute("connectionInternetTypes", connectionInternetTypes);
-        return "config-static-main";
+        return "config-static";
     }
 
     @GetMapping("/{id}/connection-internet-type/{connectionInternetTypeId}")

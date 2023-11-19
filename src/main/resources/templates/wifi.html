@@ -12,7 +12,6 @@
 <h2>Настройки беспроводного режима</h2>
 
 <form
-        id="wifi-form"
         th:action="@{/wifi/change/{id}(id=${wifi.wifiId})}"
         th:object="${wifi}"
         method="post"
@@ -34,6 +33,5 @@
     <input type="submit" value="Сохранить настройки">
 </form>
 
-<script type="text/javascript" th:src="@{/js/script.js}"></script>
 </body>
 </html>

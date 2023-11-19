@@ -8,9 +8,9 @@
 </head>
 
 <body>
-<form action="#" th:action="@{/adminAccount}" th:object="${adminAccount}">
-    <h2 class="my-1">Ваш аккаунт администратора</h2>
-    <div class="row">
+<form th:action="@{/adminAccount}" th:object="${adminAccount}">
+    <h2>Ваш аккаунт администратора</h2>
+    <div>
         <table>
             <thead>
             <tr>
@@ -32,7 +32,6 @@
             </tr>
             </tbody>
         </table>
-    </div>
     </div>
 </form>
 

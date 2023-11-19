@@ -19,7 +19,11 @@ public class RegistrationController {
     private final WifiService wifiService;
     private final ConfigService configService;
     @Autowired
-    public RegistrationController(GeneralConfigService generalConfigService, WifiService wifiService, ConfigService configService) {
+    public RegistrationController(
+            GeneralConfigService generalConfigService,
+            WifiService wifiService,
+            ConfigService configService
+    ) {
         this.generalConfigService = generalConfigService;
         this.wifiService = wifiService;
         this.configService = configService;
@@ -29,15 +33,10 @@ public class RegistrationController {
     public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String adminAccountLogin = auth.getName();
-        GeneralConfig generalConfig = prepareGeneralConfig(adminAccountLogin);
+        GeneralConfig generalConfig = generalConfigService.getGeneralConfigByAdminLogin(adminAccountLogin);
+        wifiService.prepapreWifi(generalConfig.getWifi().getWifiId());
+        configService.prepareConfig(generalConfig.getConfig().getConfigId());
         model.addAttribute("generalConfig", generalConfig);
         return "index";
-    }
-
-    private GeneralConfig prepareGeneralConfig(String adminAccountLogin){
-        GeneralConfig generalConfig = generalConfigService.getGeneralConfigByAdminLogin(adminAccountLogin);
-        Wifi wifi = wifiService.prepapreWifi(generalConfig.getWifi().getWifiId());
-        Config config = configService.prepareConfig(generalConfig.getConfig().getConfigId());
-        return generalConfigService.updateConfigs(generalConfig, wifi, config);
     }
 }
