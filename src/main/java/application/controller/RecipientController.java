@@ -28,7 +28,6 @@ public class RecipientController {
     @GetMapping("/get_by/{a_id}")
     public String getRecipients(@PathVariable("a_id") long adminAccountId, Model model){
         List<Recipient> recipients = adminAccountService.getAllRecipients(adminAccountId);
-        System.out.println(recipients.size());
         model.addAttribute("recipients", recipients);
         model.addAttribute("adminAccountId", adminAccountId);
         return "recipient";
