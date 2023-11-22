@@ -2,6 +2,7 @@ package application.services;
 
 import application.model.Account;
 import application.model.AdminAccount;
+import application.model.Recipient;
 import application.model.Role;
 import application.repository.AdminAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,29 +42,10 @@ public class AdminAccountService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    public void addAdminAccount(AdminAccount adminAccount, Account account) throws Exception {
-        AdminAccount userFromDb = adminAccountRepository.findByLogin(adminAccount.getLogin());
-        if (userFromDb != null)
-        {
-            throw new Exception("admin account exist");
-        }
-        adminAccount.setAccount(account);
-        adminAccount.setRoles(Collections.singleton(Role.USER));
-        adminAccount.setActive(true);
-        adminAccountRepository.save(adminAccount);
-    }
-
     public AdminAccount editAdminAccount(Long id) {
         return adminAccountRepository
                 .findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid admin_account Id:" + id));
-    }
-
-    public void deleteAdminAccount(Long id) {
-        AdminAccount adminAccount = adminAccountRepository
-                .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
-        adminAccountRepository.delete(adminAccount);
     }
 
     public List<AdminAccount> getAllAdminAccounts() {
@@ -87,5 +68,24 @@ public class AdminAccountService implements UserDetailsService {
         return adminAccountRepository
                 .findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
+    }
+
+    public void appendRecipient(Long id, Recipient recipient) {
+        AdminAccount adminAccount = getAdminAccountById(id);
+        adminAccount.getRecipients().add(recipient);
+        adminAccountRepository.save(adminAccount);
+    }
+
+    public void deleteRecipient(Long id, Long recipientId) {
+        AdminAccount adminAccount = getAdminAccountById(id);
+        Set<Recipient> recipients = adminAccount.getRecipients();
+        recipients.removeIf(recipient -> {return recipient.getRecipientId() == recipientId;});
+        adminAccountRepository.save(adminAccount);
+    }
+
+    public List<Recipient> getAllRecipients(Long id) {
+        AdminAccount adminAccount = getAdminAccountById(id);
+        Set<Recipient> recipients = adminAccount.getRecipients();
+        return recipients.stream().toList();
     }
 }

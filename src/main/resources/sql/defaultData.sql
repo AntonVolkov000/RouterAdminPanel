@@ -1,4 +1,4 @@
-TRUNCATE user_role, account, telegram_user, admin_account_telegram_user, admin_account,
+TRUNCATE user_role, account, recipient, admin_account_recipient, admin_account,
 general_config, config, wifi, devices, connection_internet_type, wifi_mode, connection_device_type;
 
 INSERT INTO connection_internet_type (connection_internet_id, connection_internet_name)
@@ -43,9 +43,3 @@ VALUES
 (8, 'AntonPC', '192.168.0.224', 'F1-2B-3C-4D-5E-6F', 1, 1),
 (9, 'Iphone10', '192.168.0.107', '2C-58-41-9A-76-F3', 2, 1),
 (10, 'Galaxy-A70', '192.168.0.10', '8A-9B-C7-F4-D6-02', 2, 1);
-
-INSERT INTO telegram_user(telegram_user_id, telegram_user_name)
-VALUES (284030265, 'test1');
-
-INSERT INTO admin_account_telegram_user(telegram_user_id, admin_account_id)
-VALUES (1, 284030265);

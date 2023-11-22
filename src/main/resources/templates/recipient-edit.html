@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Recipients</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div>
+        <h2>Редактировать получателя</h2>
+            <form action="#"
+                  th:action="@{'/recipient/update/' + ${adminAccountId} + '/' + ${recipient.recipientId}}"
+                  th:object="${recipient}"
+                  method="post">
+
+                <div class="row">
+                    <div>
+                        <label for="email" >Email</label>
+                        <input type="text" th:field="*{email}" id="email" placeholder="Email">
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></span>
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Сохранить изменения">
+                    </div>
+                </div>
+            </form>
+    </div>
+</body>

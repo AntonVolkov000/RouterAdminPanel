@@ -35,16 +35,16 @@ public class AdminAccount {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    // Отношение таблицы "TelegramUsers" к таблице "AdminAccount" многие ко многим.
-    // Администратор может иметь много телеграм пользователей в списке для оповещения.
-    // Телеграм пользователь может быть в списке для оповещения у нескольких администраторов
+    // Отношение таблицы "Recipient" к таблице "AdminAccount" многие ко многим.
+    // Администратор может иметь много получателей писем в списке для оповещения.
+    // Аналогично один получатель может быть в списке для оповещения у нескольких администраторов
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    @JoinTable(name = "adminAccount_telegramUser",
-            joinColumns = @JoinColumn(name = "telegram_user_id"),
+    @JoinTable(name = "adminAccount_recipient",
+            joinColumns = @JoinColumn(name = "recipient_id"),
             inverseJoinColumns = @JoinColumn(name = "admin_account_id"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"telegram_user_id", "admin_account_id"}))
-    private Set<TelegramUser> telegramUsers = new HashSet<>();
+            uniqueConstraints = @UniqueConstraint(columnNames = {"recipient_id", "admin_account_id"}))
+    private Set<Recipient> recipients;
 
     @OneToOne (mappedBy="adminAccount")
     private GeneralConfig generalConfig;
@@ -99,20 +99,20 @@ public class AdminAccount {
         this.active = active;
     }
 
-    public Set<TelegramUser> getTelegramUsers() {
-        return telegramUsers;
-    }
-
-    public void setTelegramUsers(Set<TelegramUser> telegramUsers) {
-        this.telegramUsers = telegramUsers;
-    }
-
     public GeneralConfig getGeneralConfig() {
         return generalConfig;
     }
 
     public void setGeneralConfig(GeneralConfig generalConfig) {
         this.generalConfig = generalConfig;
+    }
+
+    public Set<Recipient> getRecipients() {
+        return recipients;
+    }
+
+    public void setRecipients(Set<Recipient> recipients) {
+        this.recipients = recipients;
     }
 
     public AdminAccount()

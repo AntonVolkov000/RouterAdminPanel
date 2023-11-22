@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Recipients</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    <div th:object="${adminAccountId}" th:switch="${recipients.size()}">
+        <h2 th:case="0">Список получателей пуст.</h2>
+        <div th:case="*">
+            <h2>Получатели:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Идентификатор</th>
+                        <th>Почта</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="recipient : ${recipients}">
+                        <td th:text="${recipient.recipientId}"></td>
+                        <td th:text="${recipient.email}"></td>
+                        <td>
+                            <a th:href="@{'/recipient/edit/' + ${adminAccountId} + '/' + ${recipient.recipientId}}">Изменить</a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/recipient/delete/' + ${adminAccountId} + '/' + ${recipient.recipientId}}">Удалить</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <a th:href="@{/recipient/add_by/{a_id}(a_id=${adminAccountId})}">
+                <input type="submit" value="Добавить получателя"/>
+            </a>
+        </div>
+    </div>
+</body>

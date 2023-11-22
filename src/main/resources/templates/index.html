@@ -35,6 +35,12 @@
                 <input type="submit" value="Общие настройки"/>
             </a>
         </div>
+
+        <div>
+            <a th:href="@{/recipient/get_by/{a_id}(a_id=${generalConfig.adminAccount.adminAccountId})}">
+                <input type="submit" value="Настройка уведомлений"/>
+            </a>
+        </div>
     </div>
 </div>
 </body>
