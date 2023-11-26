@@ -30,13 +30,18 @@ public class RecipientService {
     public Recipient createRecipient(String email) {
         if (!isValidEmailAddress(email))
             return null;
-        Recipient recipient = new Recipient();
-        recipient.setEmail(email);
+        long maxId = 0;
         List<Recipient> recipients = getAllRecipients();
         for (Recipient r: recipients) {
             if (r.getEmail().equals(email))
                 return null;
+            if (r.getRecipientId() > maxId)
+                maxId = r.getRecipientId();
         }
+        long newId = maxId + 1;
+        Recipient recipient = new Recipient();
+        recipient.setRecipientId(newId);
+        recipient.setEmail(email);
         recipientRepository.save(recipient);
         return recipient;
     }
@@ -63,13 +68,13 @@ public class RecipientService {
     }
 
     public static boolean isValidEmailAddress(String email) {
-        boolean result = true;
+        boolean success = true;
         try {
             InternetAddress internetAddress = new InternetAddress(email);
             internetAddress.validate();
+            return success;
         } catch (AddressException ex) {
-            result = false;
+            return !success;
         }
-        return result;
     }
 }

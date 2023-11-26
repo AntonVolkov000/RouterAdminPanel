@@ -10,7 +10,7 @@
 
   <div>
     <h2>Новый получатель</h2>
-        <form   th:action="@{/recipient/create_by/{a_id}(a_id=${adminAccountId})}"
+        <form   th:action="@{/recipient/create-by/{a_id}(a_id=${adminAccountId})}"
                 th:object="${adminAccountId}"
                 method="post">
           <div class="row">

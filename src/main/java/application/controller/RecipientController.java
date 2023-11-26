@@ -25,7 +25,7 @@ public class RecipientController {
         this.adminAccountService = adminAccountService;
     }
 
-    @GetMapping("/get_by/{a_id}")
+    @GetMapping("/get-by/{a_id}")
     public String getRecipients(@PathVariable("a_id") long adminAccountId, Model model){
         List<Recipient> recipients = adminAccountService.getAllRecipients(adminAccountId);
         model.addAttribute("recipients", recipients);
@@ -33,13 +33,13 @@ public class RecipientController {
         return "recipient";
     }
 
-    @GetMapping("/add_by/{a_id}")
+    @GetMapping("/add-by/{a_id}")
     public String addRecipient(@PathVariable("a_id") long adminAccountId, Model model){
         model.addAttribute("adminAccountId", adminAccountId);
         return "recipient-add";
     }
 
-    @PostMapping("/create_by/{a_id}")
+    @PostMapping("/create-by/{a_id}")
     public String createRecipient(@PathVariable("a_id") long adminAccountId,
                                   String email, Model model) {
         Recipient recipient = recipientService.createRecipient(email);

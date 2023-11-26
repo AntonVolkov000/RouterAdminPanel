@@ -31,19 +31,19 @@ public class AdminAccount {
     // Отношение таблицы "AdminAccount" к таблице "Account" один к одному.
     // Администратор может иметь только один лицевой счет
     @OneToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
     private Account account;
 
     // Отношение таблицы "Recipient" к таблице "AdminAccount" многие ко многим.
     // Администратор может иметь много получателей писем в списке для оповещения.
     // Аналогично один получатель может быть в списке для оповещения у нескольких администраторов
-    @ManyToMany(fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
     @JoinTable(name = "adminAccount_recipient",
-            joinColumns = @JoinColumn(name = "recipient_id"),
-            inverseJoinColumns = @JoinColumn(name = "admin_account_id"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"recipient_id", "admin_account_id"}))
+            joinColumns = @JoinColumn(name = "admin_account_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipient_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"admin_account_id", "recipient_id"}))
     private Set<Recipient> recipients;
 
     @OneToOne (mappedBy="adminAccount")

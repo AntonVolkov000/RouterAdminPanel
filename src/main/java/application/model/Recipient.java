@@ -7,7 +7,6 @@ import java.util.Set;
 @Table(name = "recipient")
 public class Recipient {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "recipient_id")
     private long recipientId;
 
