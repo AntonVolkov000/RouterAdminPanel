@@ -43,6 +43,7 @@ public class DeviceService {
         Boolean randBoolean = random.nextBoolean();
         Device device = new Device();
 
+        device.setDeviceId(deviceRepository.getMaxId() + 1);
         device.setDeviceName(generateDeviceName(randBoolean));
         device.setConnectionDeviceType(generateConnectionDeviceType(randBoolean));
         device.setGeneralConfig(generalConfig);

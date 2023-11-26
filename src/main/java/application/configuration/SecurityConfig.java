@@ -27,7 +27,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/login", "/logout").permitAll()
                         .requestMatchers("/delete/**").hasRole("ADMIN")
-                        .requestMatchers("/adminAccount/admins").hasRole("ADMIN")
+                        .requestMatchers("/admin-account/admins").hasRole("ADMIN")
                         .requestMatchers("/create/**").hasAuthority("CREATOR")
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults());

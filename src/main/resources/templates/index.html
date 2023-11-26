@@ -11,9 +11,16 @@
 <div th:object="${generalConfig}" class="container my-5">
     <div class="row">
         <h2>Главная страница административной панели роутера</h2>
-        <h3>Добро пожаловать, <span th:text="${generalConfig.adminAccount.getLogin()}"></span>!</h3>
+        <h3>Добро пожаловать, <span th:text="${generalConfig.adminAccount.login}"></span>!</h3>
+
         <div>
-            <a th:href="@{/adminAccount/{id}(id=${generalConfig.adminAccount.adminAccountId})}">
+            <a href="/">
+                <input type="submit" value="Главная"/>
+            </a>
+        </div>
+
+        <div>
+            <a th:href="@{/admin-account/{id}(id=${generalConfig.adminAccount.adminAccountId})}">
                 <input type="submit" value="Информация об аккаунте"/>
             </a>
         </div>
@@ -31,8 +38,14 @@
         </div>
 
         <div>
-            <a th:href="@{/generalConfig/{id}(id=${generalConfig.generalConfigId})}">
+            <a th:href="@{/general-config/{id}(id=${generalConfig.generalConfigId})}">
                 <input type="submit" value="Общие настройки"/>
+            </a>
+        </div>
+
+        <div>
+            <a th:href="@{/devices/{id}(id=${generalConfig.config.configId})}">
+                <input type="submit" value="Устройства"/>
             </a>
         </div>
 

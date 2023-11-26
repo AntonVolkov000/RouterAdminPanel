@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/generalConfig")
+@RequestMapping("/general-config")
 public class GeneralConfigController {
     private final GeneralConfigService generalConfigService;
     private final WifiService wifiService;

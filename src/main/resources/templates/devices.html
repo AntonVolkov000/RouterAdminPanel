@@ -9,8 +9,10 @@
 </head>
 <body>
 
-    <div th:object="${devices}" id="devices" th:attr="data-general-config-id=${devices[0].generalConfig.generalConfigId}">
+    <div th:object="${devices}">
+
         <h2>Проводные устройства</h2>
+
         <table>
             <thead>
                 <tr>
@@ -28,11 +30,15 @@
                     <td th:text="${device.deviceName}"></td>
                     <td th:text="${device.ipAddress}"></td>
                     <td th:text="${device.macAddress}"></td>
-                    <td><button class="deleteDevice" th:attr="data-device-id=${device.deviceId}">x</button></td>
+                    <td>
+                        <button><a th:href="@{'/devices/' + ${devices[0].generalConfig.generalConfigId} + '/delete/' + ${device.deviceId}}">x</a></button>
+                    </td>
                 </tr>
             </tbody>
         </table>
+
         <h2>Беспроводные устройства</h2>
+
         <table>
             <thead>
             <tr>
@@ -50,15 +56,16 @@
                 <td th:text="${device.deviceName}"></td>
                 <td th:text="${device.ipAddress}"></td>
                 <td th:text="${device.macAddress}"></td>
-                <td><button class="deleteDevice" th:attr="data-device-id=${device.deviceId}">x</button></td>
+                <td>
+                    <button><a th:href="@{'/devices/' + ${devices[0].generalConfig.generalConfigId} + '/delete/' + ${device.deviceId}}">x</a></button>
+                </td>
             </tr>
             </tbody>
         </table>
-        <br>
-        <br>
-        <button id="add-new-device">Сгенерировать устройство</button>
-    </div>
 
-    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+        <p><button>
+            <a th:href="@{'/devices/' + ${devices[0].generalConfig.generalConfigId} + '/generate'}">Сгенерировать устройство</a>
+        </button></p>
+    </div>
 </body>
 </html>

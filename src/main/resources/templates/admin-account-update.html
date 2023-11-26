@@ -9,7 +9,7 @@
 <body>
 <div>
     <h2>Редактирование аккаунта администратора</h2>
-    <form th:action="@{/adminAccount/update/{id}(id=${adminAccount.adminAccountId})}" th:object="${adminAccount}" method="post">
+    <form th:action="@{/admin-account/update/{id}(id=${adminAccount.adminAccountId})}" th:object="${adminAccount}" method="post">
         <div>
             <div>
                 <label for="login" >Login</label>

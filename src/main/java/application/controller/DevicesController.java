@@ -36,15 +36,20 @@ public class DevicesController {
     }
 
     @GetMapping("{generalConfigId}/delete/{id}")
-    public String deleteDevice(@PathVariable("generalConfigId") long generalConfigId, @PathVariable("id") long id) {
+    public String deleteDevice(@PathVariable("generalConfigId") long generalConfigId, @PathVariable("id") long id, Model model) {
         deviceService.deleteDevice(id);
-        return "redirect:/devices/" + generalConfigId;
+        GeneralConfig generalConfig = generalConfigService.getGeneralConfigById(generalConfigId);
+        List<Device> devices = generalConfig.getDevices();
+        model.addAttribute("devices", devices);
+        return "devices";
     }
 
     @GetMapping("{generalConfigId}/generate")
-    public String generateDevice(@PathVariable("generalConfigId") long generalConfigId) {
+    public String generateDevice(@PathVariable("generalConfigId") long generalConfigId, Model model) {
         GeneralConfig generalConfig = generalConfigService.getGeneralConfigById(generalConfigId);
         deviceService.generateDevice(generalConfig);
-        return "redirect:/devices/" + generalConfigId;
+        List<Device> devices = generalConfig.getDevices();
+        model.addAttribute("devices", devices);
+        return "devices";
     }
 }

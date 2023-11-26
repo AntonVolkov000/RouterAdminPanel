@@ -11,18 +11,7 @@
 
     <h2>Настройки интернета</h2>
 
-    <div>
-        <span>Тип подключения интернета:</span>
-        <select id="connection-internet-type" name="connectionInternetType">
-            <option
-                    th:each="connectionInternetType : ${connectionInternetTypes}"
-                    th:value="${connectionInternetType.connectionInternetName}"
-                    th:selected="${connectionInternetType.connectionInternetName eq config.connectionInternetType.connectionInternetName}"
-                    th:text="${connectionInternetType.connectionInternetName}"
-                    th:attr="data-type-id=${connectionInternetType.connectionInternetId}"
-            ></option>
-        </select>
-    </div>
+    <div th:replace="switching-connection-internet-type.html"></div>
 
     <form
             id="config-form"

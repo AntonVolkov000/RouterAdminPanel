@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/adminAccount")
+@RequestMapping("/admin-account")
 public class AdminAccountController {
     private final AdminAccountService adminAccountService;
     private final AccountService accountService;
