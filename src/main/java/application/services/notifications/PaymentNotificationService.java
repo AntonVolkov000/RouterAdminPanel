@@ -1,7 +1,6 @@
 package application.services.notifications;
 
 import application.model.AdminAccount;
-import application.model.Recipient;
 import application.services.AdminAccountService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -35,19 +34,6 @@ public class PaymentNotificationService {
                "для оплаты услуги интернета.", adminAccount.getLogin(), routerServicesPayment);
     }
 
-    public void notifyAdminAccountRecipients(AdminAccount adminAccount, String subject, String message)
-    {
-        List<String> emails = adminAccount.getRecipients().stream()
-                .map(Recipient::getEmail)
-                .toList();
-        if (emails.isEmpty())
-            return;
-        for (String email: emails)
-        {
-            sendEmailService.sendEmail(email, subject, message);
-        }
-    }
-
     @Scheduled(cron = "${PAYMENT_DATE_TIME}") // формат см. в application.properties
     public void getRouterServicesPayment() throws InterruptedException {
         List<AdminAccount> adminAccounts = adminAccountService.getAllAdminAccounts();
@@ -55,7 +41,7 @@ public class PaymentNotificationService {
         String message = "";
         for (AdminAccount adminAccount: adminAccounts) {
             message = getRouterServicesPaymentMessage(adminAccount);
-            notifyAdminAccountRecipients(adminAccount, subject, message);
+            sendEmailService.notifyAdminAccountRecipients(adminAccount, subject, message);
         }
     }
 }

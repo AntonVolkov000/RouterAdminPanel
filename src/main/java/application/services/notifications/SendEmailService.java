@@ -1,11 +1,14 @@
 package application.services.notifications;
 
+import application.model.AdminAccount;
+import application.model.Recipient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.List;
 import java.util.Properties;
 
 @Component
@@ -14,6 +17,16 @@ public class SendEmailService {
     private String mailSender;
     @Value("${MAIL_PASSWORD}")
     private String mailPassword;
+
+    public void notifyAdminAccountRecipients(AdminAccount adminAccount, String subject, String message)
+    {
+        List<String> emails = adminAccount.getRecipients().stream()
+                .map(Recipient::getEmail)
+                .toList();
+        if (emails.isEmpty())
+            return;
+        sendEmail(String.join(",", emails), subject, message);
+    }
 
     public void sendEmail(String recipients, String subject, String text) {
         Properties props = new Properties();

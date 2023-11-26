@@ -2,7 +2,6 @@ package application.controller;
 
 import application.model.AdminAccount;
 import application.model.GeneralConfig;
-import application.model.Recipient;
 import application.services.AdminAccountService;
 import application.services.ConfigService;
 import application.services.GeneralConfigService;
@@ -16,8 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 public class MainController {
@@ -65,12 +62,7 @@ public class MainController {
     public String disconnectInternet(@PathVariable("id") long id) {
         AdminAccount adminAccount = adminAccountService.getAdminAccountById(id);
         String text = textPart1 + adminAccount.getLogin() + "!\n" + textPart2;
-        List<Recipient> recipients = adminAccountService.getAllRecipients(id);
-        StringBuilder recipientsSB = new StringBuilder();
-        for (Recipient recipient: recipients) {
-            recipientsSB.append(recipient.getEmail());
-        }
-        sendEmailService.sendEmail(recipientsSB.toString(), subject, text);
+        sendEmailService.notifyAdminAccountRecipients(adminAccount, subject, text);
         return "redirect:/";
     }
 }
