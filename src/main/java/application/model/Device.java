@@ -2,13 +2,10 @@ package application.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "devices")
 public class Device {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "device_id")
     private Long deviceId;
 

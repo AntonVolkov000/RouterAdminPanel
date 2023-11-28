@@ -1,9 +1,7 @@
 package application.services;
 
-import application.model.*;
-import application.repository.ConfigRepository;
+import application.model.GeneralConfig;
 import application.repository.GeneralConfigRepository;
-import application.repository.WifiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

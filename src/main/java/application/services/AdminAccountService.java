@@ -32,10 +32,10 @@ public class AdminAccountService implements UserDetailsService {
         AdminAccount admin = adminAccountRepository.findByLogin(login);
         return new org.springframework.security.core.userdetails.User(
                 admin.getLogin(),
-                admin.getPassword(), mapRolesToAthorities(admin.getRoles()));
+                admin.getPassword(), mapRolesToAuthorities(admin.getRoles()));
     }
 
-    private List<? extends GrantedAuthority> mapRolesToAthorities(Set<Role> roles)
+    private List<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles)
     {
         return roles.stream()
                 .map(r -> new SimpleGrantedAuthority("ROLE_" + r.name()))
@@ -60,10 +60,6 @@ public class AdminAccountService implements UserDetailsService {
         adminAccountRepository.save(adminAccount);
     }
 
-    public AdminAccount getAdminAccountByLogin(String login) {
-        return adminAccountRepository.findByLogin(login);
-    }
-
     public AdminAccount getAdminAccountById(Long id) {
         return adminAccountRepository
                 .findById(id)
@@ -79,7 +75,7 @@ public class AdminAccountService implements UserDetailsService {
     public void deleteRecipient(Long id, Long recipientId) {
         AdminAccount adminAccount = getAdminAccountById(id);
         Set<Recipient> recipients = adminAccount.getRecipients();
-        recipients.removeIf(recipient -> {return recipient.getRecipientId() == recipientId;});
+        recipients.removeIf(recipient -> recipient.getRecipientId() == recipientId);
         adminAccountRepository.save(adminAccount);
     }
 

@@ -47,8 +47,7 @@ public class DeviceService {
         device.setDeviceName(generateDeviceName(randBoolean));
         device.setConnectionDeviceType(generateConnectionDeviceType(randBoolean));
         device.setGeneralConfig(generalConfig);
-        IPv4Type type = CLASS_B;
-        device.setIpAddress(generateIpAddress(type));
+        device.setIpAddress(generateIpAddress(CLASS_B));
         device.setMacAddress(generateMacAddress());
 
         deviceRepository.save(device);
@@ -76,10 +75,9 @@ public class DeviceService {
 
     private ConnectionDeviceType generateConnectionDeviceType(Boolean randBoolean) {
         Long ConnectionDeviceTypeId = randBoolean ? 2L : 1L;
-        ConnectionDeviceType connectionDeviceType = connectionDeviceTypeRepository
+        return connectionDeviceTypeRepository
                 .findById(ConnectionDeviceTypeId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid connectionDeviceType Id:" + ConnectionDeviceTypeId));
-        return connectionDeviceType;
     }
 
     private String generateIpAddress(IPv4Type type) {
@@ -103,7 +101,7 @@ public class DeviceService {
         StringBuilder sb = new StringBuilder(18);
         String separator = "-";
         for (byte b : macAddress) {
-            if (sb.length() > 0) {
+            if (!sb.isEmpty()) {
                 sb.append(separator);
             }
             sb.append(String.format("%02X", b));

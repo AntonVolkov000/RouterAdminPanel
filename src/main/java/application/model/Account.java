@@ -2,11 +2,6 @@ package application.model;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-
 @Entity
 @Table(name = "account")
 public class Account {
@@ -53,11 +48,6 @@ public class Account {
 
     public void setAdminAccount(AdminAccount adminAccount) {
         this.adminAccount = adminAccount;
-    }
-
-    public Account(String accountNumber, double sum) {
-        this.accountNumber = accountNumber;
-        this.sum = sum;
     }
 
     public Account() {}

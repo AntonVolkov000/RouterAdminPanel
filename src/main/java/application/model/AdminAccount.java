@@ -27,7 +27,6 @@ public class AdminAccount {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))    @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
-
     // Отношение таблицы "AdminAccount" к таблице "Account" один к одному.
     // Администратор может иметь только один лицевой счет
     @OneToOne(cascade = CascadeType.ALL,
