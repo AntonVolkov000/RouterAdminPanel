@@ -8,7 +8,6 @@ import application.services.GeneralConfigService;
 import application.services.WifiService;
 import application.services.notifications.SendEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -24,11 +23,6 @@ public class MainController {
     private final AdminAccountService adminAccountService;
 
     private final SendEmailService sendEmailService;
-
-    @Value("${MAIL_SENDER}")
-    private String mailSender;
-    @Value("${MAIL_PASSWORD}")
-    private String mailPassword;
     private final String subject = "Перебои в сети интернет";
     private final String textPart1 = "Здравствуйте, ";
     private final String textPart2 = "К сожалению, в данный момент по вашему адресу обнаружен обрыв в сети интернет. Не волнуйтесь, мы уже занимаемся этим вопросом. Интернет будет восстановлен в течение 3 часов.";

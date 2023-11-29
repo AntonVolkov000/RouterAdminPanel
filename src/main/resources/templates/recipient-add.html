@@ -13,7 +13,7 @@
         <form   th:action="@{/recipient/create-by/{a_id}(a_id=${adminAccountId})}"
                 th:object="${adminAccountId}"
                 method="post">
-          <div class="row">
+          <div>
             <div >
               <label>Email</label> <input type="text" name="email">
             </div>

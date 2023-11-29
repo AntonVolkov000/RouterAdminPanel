@@ -11,7 +11,7 @@
     <p><a href="/"><input type="submit" value="Главная"/></a></p>
 
     <div th:object="${adminAccountId}" th:switch="${recipients.size()}">
-        <h2 th:case="0">Список получателей пуст.</h2>
+        <h2 th:case="0">Список получателей пуст</h2>
         <div th:case="*">
             <h2>Получатели:</h2>
             <table>

@@ -8,8 +8,8 @@
 
 </head>
 <body>
-<div th:object="${generalConfig}" class="container my-5">
-    <div class="row">
+<div th:object="${generalConfig}">
+    <div>
         <h2>Главная страница административной панели роутера</h2>
         <h3>Добро пожаловать, <span th:text="${generalConfig.adminAccount.login}"></span>!</h3>
 

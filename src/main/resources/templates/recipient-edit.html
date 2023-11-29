@@ -10,12 +10,11 @@
 <body>
     <div>
         <h2>Редактировать получателя</h2>
-            <form action="#"
+            <form
                   th:action="@{'/recipient/update/' + ${adminAccountId} + '/' + ${recipient.recipientId}}"
                   th:object="${recipient}"
                   method="post">
-
-                <div class="row">
+                <div>
                     <div>
                         <label for="email" >Email</label>
                         <input type="text" th:field="*{email}" id="email" placeholder="Email">
