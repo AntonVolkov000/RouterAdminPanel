@@ -12,6 +12,13 @@ import java.util.List;
 public class PaymentNotificationService {
     private final AdminAccountService adminAccountService;
     private final SendEmailService sendEmailService;
+    private final static double routerServicesPayment = 500.00;
+    private final static String messageForPaymentCritical = "Здравствуйте, {0}!\n" +
+            "У вас недостаточно средств для оплаты услуги интернета. " +
+            "Количество средств на счёте: {1}";
+    private final static String messageForPaymentSuccess = "Здравствуйте, {0}!\n" +
+            "Завтра у вас со счёта будет списано {1} рублей " +
+            "для оплаты услуги интернета.";
 
     public PaymentNotificationService(AdminAccountService adminAccountService, SendEmailService sendEmailService) {
         this.adminAccountService = adminAccountService;
@@ -19,19 +26,11 @@ public class PaymentNotificationService {
     }
 
     private String getRouterServicesPaymentMessage(AdminAccount adminAccount) {
-        double accountSum = -1;
-        final double routerServicesPayment = 500.00;
-        accountSum = adminAccount.getAccount().getSum();
+        double accountSum = adminAccount.getAccount().getSum();
         if (accountSum < routerServicesPayment) {
-             return MessageFormat.format(
-                     "Здравствуйте, {0}!" +
-                     "У вас недостаточно средств для оплаты услуги интернета. " +
-                     "Количество средств на счёте: {1}", adminAccount.getLogin(), accountSum);
+             return MessageFormat.format(messageForPaymentCritical, adminAccount.getLogin(), accountSum);
         }
-       return MessageFormat.format(
-               "Здравствуйте, {0}! " +
-               "Завтра у вас со счёта будет списано {1} рублей" +
-               "для оплаты услуги интернета.", adminAccount.getLogin(), routerServicesPayment);
+       return MessageFormat.format(messageForPaymentSuccess, adminAccount.getLogin(), routerServicesPayment);
     }
 
     @Scheduled(cron = "${PAYMENT_DATE_TIME}") // формат см. в application.properties

@@ -16,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.text.MessageFormat;
+
 @Controller
 public class MainController {
     private final GeneralConfigService generalConfigService;
@@ -29,9 +31,11 @@ public class MainController {
     private String mailSender;
     @Value("${MAIL_PASSWORD}")
     private String mailPassword;
-    private final String subject = "Перебои в сети интернет";
-    private final String textPart1 = "Здравствуйте, ";
-    private final String textPart2 = "К сожалению, в данный момент по вашему адресу обнаружен обрыв в сети интернет. Не волнуйтесь, мы уже занимаемся этим вопросом. Интернет будет восстановлен в течение 3 часов.";
+    private final static String subject = "Перебои в сети интернет";
+    private final static String message = "Здравствуйте, {0}!\n" +
+            "К сожалению, в данный момент по вашему адресу обнаружен обрыв в сети интернет. " +
+            "Не волнуйтесь, мы уже занимаемся этим вопросом. " +
+            "Интернет будет восстановлен в течение 3 часов.";
 
     @Autowired
     public MainController(
@@ -61,7 +65,7 @@ public class MainController {
     @RequestMapping("/disconnect-internet/{id}")
     public String disconnectInternet(@PathVariable("id") long id) {
         AdminAccount adminAccount = adminAccountService.getAdminAccountById(id);
-        String text = textPart1 + adminAccount.getLogin() + "!\n" + textPart2;
+        String text = MessageFormat.format(message, adminAccount.getLogin());
         sendEmailService.notifyAdminAccountRecipients(adminAccount, subject, text);
         return "redirect:/";
     }
